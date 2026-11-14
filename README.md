@@ -1,139 +1,117 @@
 # ChosProxy
 
-**A modern, open-source web security testing workbench for Kali Linux** — an
-intercepting HTTP(S) proxy and toolkit for inspecting, modifying and
-understanding web application traffic.
+**Un entorno local para inspeccionar, modificar y entender el tráfico de aplicaciones web.**
 
-> ⚠️ **Authorized use only.** Use ChosProxy only against systems you own or
-> are explicitly authorized to test: local labs (OWASP Juice Shop, DVWA,
-> WebGoat, PortSwigger Web Security Academy), CTFs, your own development
-> environments, or engagements covered by written permission. Testing other
-> systems may be illegal. See [SECURITY.md](SECURITY.md).
+ChosProxy combina un proxy HTTP(S) con herramientas de pruebas de seguridad. Utiliza un motor Rust y una interfaz Tauri + React, con código, diseño e identidad propios.
 
-ChosProxy is built from scratch (Rust engine, Tauri + React UI). It is
-inspired *conceptually* by the problems professional suites solve, with its
-own code, design and identity. Everything runs locally: no telemetry, no
-analytics, no cloud.
+[Herramientas](#herramientas) · [Instalación en Kali](#instalación-en-kali) · [Desde el código fuente](#desde-el-código-fuente) · [Primeros pasos](#primeros-pasos) · [Documentación](#documentación)
 
-## Status
+> Utilízalo con sistemas propios o con autorización expresa: laboratorios locales, CTF, entornos de desarrollo y pruebas acordadas. Consulta [SECURITY.md](SECURITY.md).
 
-Early development — see [ROADMAP.md](ROADMAP.md).
+## Estado y alcance
 
-| Available now | Next |
-|---|---|
-| Temporary and persistent projects (single SQLite file) | M16: performance and hardening |
-| HTTP proxy listeners (start/stop/restart, multiple, loopback by default), HTTP/2 to browsers, invisible mode for non-proxy-aware clients | M17: 1.0 packages for Kali |
-| Byte-exact HTTP/1.1 relay (keep-alive, chunked, 100-continue, 1xx, upgrades) | |
-| Intercept: pause, edit, forward or drop requests and responses, with rules | |
-| Match & Replace: automatic changes to request and response lines, headers and bodies | |
-| Network settings: upstream HTTP/SOCKS5 proxies per destination, host name overrides, timeouts (docs/NETWORK.md) | |
-| Repeater: tabs and groups saved in the project, send/cancel, group sends (sequence, single connection, parallel), kept connections, cookie jar, timing, per-tab history, follow redirects (by hand or automatically), notes per tab, collapsible groups, HTTP/2 and single-packet race tests | |
-| Shared right-click menu to send requests to other tools; a menu inside the message editors with copy as curl, Python or fetch | |
-| Passive analysis: 25 checks (single requests, JavaScript, and across requests such as a session not renewed at login) find weaknesses in traffic as you browse, with explanations; suppression rules for false positives | |
-| Scans: crawl, passive audit, JavaScript analysis, and optional active audit (off by default; requires explicit target, non-empty scope, per-launch authorization confirmation and request budgets; built-in non-destructive XSS/SQLi/redirect/CORS/OAST checks plus custom active check scripts), with configurations you can save, share and schedule, a dashboard, a check picker, and a log and request notes that explain every decision | |
-| Live tasks: a passive audit or passive crawl that follows your traffic as it arrives and carries on when you reopen the project | |
-| M31b: streamed ChosAI answers, plugin hooks for responses and HTTP/2, a certificate per listener, NTLMv2, keyring in the macOS Keychain or behind a master password, an SMTP sink for ChosOAST, crawl graph, nested Organizer collections, saved tool settings, WebSocket scripts, an OpenAPI description and event stream for the API | |
-| Resource pools: shared request limits for the crawler, Fuzzer, Sequencer, Repeater and plugins, chosen per task at launch or while it runs, slowing down when a server answers 429/503 | |
-| ChosAI: explanations, finding analysis and report text from a local model (or an opt-in provider), with redaction and a context preview (docs/AI.md) | |
-| ChosAgent: an agent that uses ChosProxy's own tools under Deny / Ask / Allow permissions enforced by the engine (requests always approved, in scope), with an AI activity log (docs/AI.md) | |
-| Encrypted project files (SQLCipher), crash recovery with read-only inspection mode, password-sealed Organizer and settings sharing, local Security & Privacy posture center, filtered project audit log, temporary-file cleanup and a local Performance view (docs/PROJECT_FILES.md) | |
-| Automation API and `chosproxy-cli`: headless mode and scripting on 127.0.0.1 with a token (docs/API.md) | |
-| API workspace: OpenAPI/Swagger, Postman and WSDL definitions as requests for Repeater and the Fuzzer, bounded sends; GraphQL introspection, schema browser and query builder | |
-| Crawler: maps a site in the background (GET only, in scope), with pausable tasks; browser-powered crawl through the lab browser | |
-| Sessions: encrypted credentials, Basic/Digest platform authentication, session rules with login macros and variables | |
-| Fuzzer: payload positions (auto-marked in query, form, cookies, JSON, multipart, XML), four attack modes, payload processing (incl. dates), grep match/extract, stop conditions, CSV export, highlighted results | |
-| Sequencer: capture tokens and see how random they are, with explained statistics | |
-| Plugins (APIs v1 and v2): separate programs with granted permissions — traffic, findings, sending requests, project queries, menu actions, request hooks that change, block or answer in-scope proxy requests; signed plugins and trusted publishers; see PLUGIN_SDK.md | |
-| Scripts (sandboxed): your own checks, history filters and columns, actions and Match & Replace rewrites; see docs/SCRIPTS.md | |
-| Engagement tools: content discovery with soft-404 detection, CSRF PoC, FrameLab (clickjacking), target analyzer, find references, site map snapshots, scheduler | |
-| DOM Inspector: source → sink analysis in the lab browser (Chromium family), with findings (docs/DOM_INSPECTOR.md) | |
-| OAST: out-of-band DNS/HTTP(S) interactions linked to the requests that caused them; local or self-hosted `chosoast` server (docs/OAST.md) | |
-| HTTPS interception with a local CA generated on your machine (or one you import) | |
-| Isolated lab browser (Chromium or Firefox) — one click, no trust-store changes | |
-| HTTP history: virtualized table, filters (incl. MIME type), sorting by column, request/response viewer (Pretty / Raw / Hex with byte selection / Inspector, with editable JSON fields), saved filters, copy as curl | |
-| Dashboard with a getting-started checklist, settings, command palette (Ctrl/Cmd+K, also finds stored requests), keyboard shortcuts you can rebind (`?` lists them), scope import from a list of hosts or URLs, dark/light/system themes | |
+Proyecto en desarrollo. El repositorio incluye herramientas de análisis, automatización e integración; la [hoja de ruta](ROADMAP.md) recoge su evolución. El listado de funciones describe el código documentado y no sustituye las comprobaciones en cada plataforma.
 
-## Install on Kali Linux (x86_64)
+El trabajo se realiza localmente. Las funciones de IA permiten usar un modelo local o un proveedor externo elegido de forma explícita; revisa el contexto y la configuración antes de compartir datos.
+
+## Herramientas
+
+| Área | Funciones |
+| --- | --- |
+| **Proyectos** | Proyectos temporales y persistentes en SQLite; cifrado SQLCipher, recuperación tras fallos, inspección de solo lectura y registro de auditoría. |
+| **Proxy HTTP(S)** | Varios puntos de escucha, loopback por defecto, HTTP/2 hacia el navegador y modo invisible. Retransmisión HTTP/1.1 que conserva los bytes, conexiones persistentes, fragmentación y cambios de protocolo. |
+| **Interceptación** | Pausar, editar, reenviar o descartar peticiones y respuestas. Reglas y sustituciones automáticas sobre líneas, cabeceras y cuerpos. |
+| **Red y sesiones** | Proxies HTTP/SOCKS5 por destino, nombres de host alternativos, tiempos de espera, credenciales cifradas, Basic/Digest y macros de inicio de sesión. |
+| **Historial** | Tabla virtualizada, filtros, ordenación, vistas Pretty/Raw/Hex/Inspector, edición JSON y copia como curl, Python o fetch. |
+| **Repeater** | Pestañas y grupos persistentes, envíos individuales o agrupados, cancelación, cookies, tiempos, historial, redirecciones, notas, HTTP/2 y pruebas de carrera de un solo paquete. |
+| **Análisis pasivo** | 25 comprobaciones sobre peticiones, JavaScript y relaciones entre mensajes, con explicaciones y reglas para descartar falsos positivos. |
+| **Exploración y auditorías** | Rastreo GET dentro del alcance, exploración con navegador, análisis JavaScript, tareas pausables y auditoría pasiva que continúa al reabrir el proyecto. |
+| **Auditoría activa** | Desactivada por defecto. Exige objetivo, alcance, autorización por ejecución y límites de peticiones. Incluye comprobaciones XSS, SQLi, redirecciones, CORS y OAST, además de scripts propios. |
+| **Fuzzer** | Posiciones automáticas en consulta, formularios, cookies, JSON, multipart y XML; cuatro modos de ataque, procesamiento de cargas, búsqueda y extracción, condiciones de parada y CSV. |
+| **Sequencer** | Captura de tokens y análisis explicado de su aleatoriedad. |
+| **API y GraphQL** | Importación OpenAPI/Swagger, Postman y WSDL hacia Repeater/Fuzzer; introspección, exploración de esquema y construcción de consultas GraphQL. |
+| **Extensiones** | Complementos con permisos, publicadores de confianza y firma; scripts aislados para comprobaciones, filtros, columnas, acciones y reescrituras. |
+| **DOM y OAST** | Análisis de origen a destino en el navegador de laboratorio; interacciones DNS/HTTP(S) vinculadas a sus peticiones mediante ChosOAST local o alojado por el usuario. |
+| **Organización** | Colecciones, notas, descubrimiento de contenido, detección de soft-404, prueba CSRF, FrameLab, búsqueda de referencias, capturas del mapa y programación de tareas. |
+| **Recursos** | Límites compartidos de peticiones entre rastreador, Fuzzer, Sequencer, Repeater y complementos; reducción del ritmo ante respuestas 429/503. |
+| **ChosAI y ChosAgent** | Explicaciones, análisis de hallazgos e informes; agente con permisos Deny/Ask/Allow aplicados por el motor, alcance controlado y registro de actividad. |
+| **Automatización** | API local con token, flujo de eventos, descripción OpenAPI y `chosproxy-cli` para ejecución sin interfaz. |
+
+Incluye navegador de laboratorio con perfil temporal, autoridad certificadora local, temas claro/oscuro, paleta de comandos y atajos configurables. Las funciones M31b añaden respuestas de IA progresivas, NTLMv2, almacén de claves, receptor SMTP para OAST y ampliaciones de API y complementos.
+
+## Instalación en Kali
+
+Para Kali Linux x86_64, si dispones del paquete generado:
 
 ```bash
 sudo apt install ./chosproxy_1.0.0_amd64.deb
 ```
 
-Then start **ChosProxy** from the applications menu or run `chosproxy`.
-Alternatively make the AppImage executable and run it. Packages are built
-with `scripts/build-kali.sh` (or downloaded from CI artifacts).
+Abre **ChosProxy** desde el menú de aplicaciones o ejecuta `chosproxy`. También puede utilizarse una AppImage con permiso de ejecución. Los paquetes se construyen con `scripts/build-kali.sh`; consulta los artefactos disponibles en la integración continua.
 
-## Quick start (from source)
+## Desde el código fuente
 
-Requirements: Rust (stable, ≥ 1.89), Node.js ≥ 22, pnpm, and on Linux the
-WebKitGTK development packages:
+Requisitos documentados: Rust estable 1.89 o posterior, Node.js 22 o posterior y pnpm. En Linux se necesitan las dependencias de WebKitGTK:
 
 ```bash
 sudo apt install libwebkit2gtk-4.1-dev libsoup-3.0-dev libjavascriptcoregtk-4.1-dev librsvg2-dev libxdo-dev build-essential
-```
-
-```bash
 pnpm install
-```
-
-```bash
 pnpm dev
 ```
 
-Then click **Start temporary project**, then **Open browser**. The proxy
-listens on `127.0.0.1:8080`; the lab browser is an installed Chromium/Chrome
-or Firefox started with a temporary profile that already uses the proxy and
-accepts ChosProxy's HTTPS certificates. Nothing is installed in your system
-or in your everyday browser profile. On Kali, if no browser is detected:
+## Primeros pasos
+
+1. Pulsa **Start temporary project** para abrir un proyecto temporal.
+2. Pulsa **Open browser** para iniciar el navegador de laboratorio.
+3. El proxy escucha por defecto en `127.0.0.1:8080`.
+4. Navega por tu laboratorio y revisa las peticiones en **Proxy → HTTP history**.
+
+Se utiliza Chromium/Chrome o Firefox instalado con un perfil temporal configurado para el proxy. Si no hay navegador compatible en Kali:
 
 ```bash
 sudo apt install chromium
 ```
 
-### HTTPS and the local CA
+### HTTPS y certificados
 
-On first start ChosProxy generates a certificate authority on your machine
-(Proxy → **HTTPS & browser** shows it). Its private key never leaves your
-machine. The lab browser trusts it automatically for its temporary profile.
-For another dedicated testing browser, open `http://chosproxy/` through the
-proxy and import the certificate (see the in-app instructions).
+En el primer arranque se genera una autoridad certificadora local. Puedes consultarla en **Proxy → HTTPS & browser**. Su clave privada permanece en el equipo.
 
-### Try it with OWASP Juice Shop
+El perfil temporal del navegador de laboratorio acepta sus certificados. Para otro navegador dedicado a pruebas, abre `http://chosproxy/` a través del proxy y sigue las instrucciones de importación.
+
+### Laboratorio con Juice Shop
 
 ```bash
 docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop
 ```
 
-Browse `http://localhost:3000` in the lab browser; requests appear in
-**Proxy → HTTP history**.
+Abre `http://localhost:3000` en el navegador de laboratorio.
 
-### Built-in lab server
+### Servidor de práctica integrado
 
-A deliberately simple local server (loopback only) for exercising the proxy,
-on HTTP and on HTTPS with a self-signed certificate:
+Servidor local, limitado a loopback, con HTTP y HTTPS mediante certificado autofirmado:
 
 ```bash
 pnpm lab -- --port 9090 --tls-port 9443
 ```
 
-## Documentation
+## Documentación
 
-| Document | Contents |
-|---|---|
-| [docs/PROJECT_SPEC.md](docs/PROJECT_SPEC.md) | Product specification (+ [parity addendum](docs/PROJECT_SPEC_ADDENDUM_PARITY.md)) |
-| [docs/BURP_PARITY_MATRIX.md](docs/BURP_PARITY_MATRIX.md) | Capability parity matrix vs. the reference suite |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Crates, data flows, interfaces, core seams, risks |
-| [ROADMAP.md](ROADMAP.md) | Milestones and their exit criteria |
-| [DEVELOPMENT.md](DEVELOPMENT.md) | Building, testing, project layout, conventions |
-| [THREAT_MODEL.md](THREAT_MODEL.md) | Security model of ChosProxy itself |
-| [SECURITY.md](SECURITY.md) | Intended use, vulnerability reporting |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
-| [PLUGIN_SDK.md](PLUGIN_SDK.md) | Plugin API design (Milestone 14) |
-| [docs/DOM_INSPECTOR.md](docs/DOM_INSPECTOR.md) | DOM Inspector: client-side source → sink analysis |
-| [docs/OAST.md](docs/OAST.md) | ChosOAST: local and self-hosted out-of-band testing |
-| [docs/adr/](docs/adr/) | Architecture decision records |
+| Guía | Contenido |
+| --- | --- |
+| [Especificación](docs/PROJECT_SPEC.md) | Objetivos y alcance del producto; [ampliación de requisitos](docs/PROJECT_SPEC_ADDENDUM_PARITY.md). |
+| [Matriz de capacidades](docs/BURP_PARITY_MATRIX.md) | Comparativa documentada con la suite de referencia. |
+| [Arquitectura](ARCHITECTURE.md) | Módulos, flujos de datos e interfaces. |
+| [Desarrollo](DEVELOPMENT.md) | Compilación, pruebas, estructura y convenciones. |
+| [Hoja de ruta](ROADMAP.md) | Hitos y criterios de finalización. |
+| [Modelo de amenazas](THREAT_MODEL.md) | Seguridad de la propia herramienta. |
+| [IA y agente](docs/AI.md) | Proveedores, contexto y permisos. |
+| [Red](docs/NETWORK.md) y [archivos de proyecto](docs/PROJECT_FILES.md) | Conexión, persistencia y privacidad. |
+| [API](docs/API.md) y [SDK de complementos](PLUGIN_SDK.md) | Automatización y extensiones. |
+| [Scripts](docs/SCRIPTS.md) | Comprobaciones y acciones personalizadas. |
+| [Inspector DOM](docs/DOM_INSPECTOR.md) y [OAST](docs/OAST.md) | Análisis en navegador e interacciones externas. |
+| [Seguridad](SECURITY.md) y [contribuciones](CONTRIBUTING.md) | Uso previsto y participación. |
+| [Decisiones de arquitectura](docs/adr/) | Motivos de las decisiones técnicas. |
 
-## License
+## Licencia
 
-Not yet selected — the options and a recommendation are documented in
-[ADR-0008](docs/adr/0008-license.md) and await the project owner's decision.
+La licencia está pendiente de elección por el propietario. Las opciones y la recomendación están documentadas en [ADR-0008](docs/adr/0008-license.md). Que el repositorio sea público no concede por sí solo una licencia de reutilización.
