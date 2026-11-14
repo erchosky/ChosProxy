@@ -1,0 +1,7 @@
+{
+  "productName": "ChosProxy",
+  "binaryName": "chosproxy",
+  "identifier": "org.chosproxy.desktop",
+  "configDirName": "chosproxy",
+  "tagline": "Web security testing workbench for authorized assessments"
+}

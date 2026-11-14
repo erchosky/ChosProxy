@@ -1,0 +1,31 @@
+[package]
+name = "chosproxy-api"
+description = "The ChosProxy automation API: a token-protected JSON API on loopback over the engine."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+chosproxy-app.workspace = true
+chosproxy-core.workspace = true
+chosproxy-crawler.workspace = true
+chosproxy-storage.workspace = true
+bytes.workspace = true
+http-body-util.workspace = true
+hyper.workspace = true
+hyper-util.workspace = true
+ring.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+subtle.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+url.workspace = true
+
+[dev-dependencies]
+chosproxy-lab.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

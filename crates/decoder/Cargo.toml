@@ -1,0 +1,20 @@
+[package]
+name = "chosproxy-decoder"
+description = "Decoder: encodings, compression, hashes, JWT inspection, chains and smart decode."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+base64.workspace = true
+flate2.workspace = true
+md5.workspace = true
+ring.workspace = true
+serde.workspace = true
+serde_json = { workspace = true, features = ["preserve_order"] }
+thiserror.workspace = true
+ts-rs.workspace = true
+
+[lints]
+workspace = true

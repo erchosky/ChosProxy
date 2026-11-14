@@ -1,0 +1,16 @@
+[package]
+name = "chosproxy-sequencer"
+description = "Sequencer for ChosProxy: token extraction and statistical analysis of token randomness."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+chosproxy-http.workspace = true
+regex.workspace = true
+serde.workspace = true
+ts-rs.workspace = true
+
+[lints]
+workspace = true

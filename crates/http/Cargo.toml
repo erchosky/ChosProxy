@@ -1,0 +1,23 @@
+[package]
+name = "chosproxy-http"
+description = "Wire-exact HTTP/1.1 codec and message helpers for ChosProxy."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+brotli.workspace = true
+flate2.workspace = true
+httparse.workspace = true
+httpdate.workspace = true
+memchr.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["io-util"] }
+
+[dev-dependencies]
+flate2.workspace = true
+tokio = { workspace = true, features = ["macros", "rt"] }
+
+[lints]
+workspace = true

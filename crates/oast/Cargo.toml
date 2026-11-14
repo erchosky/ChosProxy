@@ -1,0 +1,32 @@
+[package]
+name = "chosproxy-oast"
+description = "ChosOAST: out-of-band interaction identifiers, a DNS/HTTP(S) interaction server and its polling API."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "chosoast"
+path = "src/bin/chosoast.rs"
+
+[dependencies]
+base64.workspace = true
+chosproxy-core.workspace = true
+chosproxy-http.workspace = true
+rcgen.workspace = true
+ring.workspace = true
+rustls.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+subtle.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-rustls.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,18 @@
+[package]
+name = "chosproxy-ai"
+description = "ChosAI for ChosProxy: redaction, context building, prompts and model API formats (no I/O)."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+chosproxy-core.workspace = true
+regex.workspace = true
+ring.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ts-rs.workspace = true
+
+[lints]
+workspace = true

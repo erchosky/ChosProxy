@@ -1,0 +1,20 @@
+{
+  "name": "chosproxy",
+  "private": true,
+  "description": "ChosProxy monorepo tooling. Rust lives in the Cargo workspace; this file drives the frontend and combined checks.",
+  "packageManager": "pnpm@11.21.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @chosproxy/desktop tauri dev",
+    "build": "pnpm --filter @chosproxy/desktop tauri build",
+    "lint": "pnpm --filter @chosproxy/desktop lint && cargo clippy --workspace --all-targets -- -D warnings",
+    "format": "pnpm --filter @chosproxy/desktop format && cargo fmt --all",
+    "format:check": "pnpm --filter @chosproxy/desktop format:check && cargo fmt --all --check",
+    "test": "cargo test --workspace && pnpm --filter @chosproxy/desktop test",
+    "typecheck": "pnpm --filter @chosproxy/desktop typecheck",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && node scripts/check-bindings.mjs",
+    "lab": "cargo run -p chosproxy-lab --"
+  }
+}

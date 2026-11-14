@@ -1,0 +1,9 @@
+# HelloPlugin: the minimal ChosProxy plugin (see PLUGIN_SDK.md).
+id = "hello-plugin"
+name = "HelloPlugin"
+version = "1.0.0"
+description = "Flags responses that expose a debug token (X-Debug-Token header) with an informational finding."
+author = "ChosProxy"
+api = 1
+command = ["python3", "hello.py"]
+permissions = ["network.read", "scanner.passive", "project.write"]

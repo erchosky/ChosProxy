@@ -1,0 +1,127 @@
+[workspace]
+resolver = "3"
+members = [
+  "crates/core",
+  "crates/http",
+  "crates/tls",
+  "crates/request",
+  "crates/decoder",
+  "crates/websocket",
+  "crates/report",
+  "crates/scanner",
+  "crates/crawler",
+  "crates/fuzzer",
+  "crates/sequencer",
+  "crates/plugin",
+  "crates/oast",
+  "crates/dom",
+  "crates/discovery",
+  "crates/script",
+  "crates/apispec",
+  "crates/ai",
+  "crates/api",
+  "crates/cli",
+  "crates/storage",
+  "crates/lab",
+  "crates/proxy",
+  "crates/app",
+  "apps/desktop/src-tauri",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2024"
+rust-version = "1.89"
+publish = false
+repository = "https://github.com/chosproxy/chosproxy"
+
+[workspace.dependencies]
+chosproxy-core = { path = "crates/core" }
+chosproxy-http = { path = "crates/http" }
+chosproxy-oast = { path = "crates/oast" }
+chosproxy-dom = { path = "crates/dom" }
+chosproxy-discovery = { path = "crates/discovery" }
+chosproxy-storage = { path = "crates/storage" }
+chosproxy-tls = { path = "crates/tls" }
+chosproxy-proxy = { path = "crates/proxy" }
+chosproxy-request = { path = "crates/request" }
+chosproxy-decoder = { path = "crates/decoder" }
+chosproxy-websocket = { path = "crates/websocket" }
+chosproxy-report = { path = "crates/report" }
+chosproxy-scanner = { path = "crates/scanner" }
+chosproxy-crawler = { path = "crates/crawler" }
+chosproxy-fuzzer = { path = "crates/fuzzer" }
+chosproxy-sequencer = { path = "crates/sequencer" }
+chosproxy-plugin = { path = "crates/plugin" }
+chosproxy-app = { path = "crates/app" }
+chosproxy-lab = { path = "crates/lab" }
+chosproxy-script = { path = "crates/script" }
+chosproxy-apispec = { path = "crates/apispec" }
+chosproxy-ai = { path = "crates/ai" }
+chosproxy-api = { path = "crates/api" }
+
+base64 = "0.23"
+brotli = "9"
+bytes = "1"
+directories = "6"
+flate2 = "1"
+h2 = "0.4"
+http = "1"
+http-body-util = "0.1"
+httparse = "1.10"
+httpdate = "1"
+hyper = { version = "1", features = ["server", "http1", "http2"] }
+hyper-util = { version = "0.1", features = ["tokio", "server", "server-auto", "http1", "http2"] }
+md4 = "0.10"
+md5 = { package = "md-5", version = "0.10" }
+hmac = "0.12"
+memchr = "2"
+quick-xml = "0.42"
+regex = "1"
+rhai = { version = "1.27", features = ["sync"] }
+rcgen = { version = "0.14", default-features = false, features = ["crypto", "pem", "ring", "x509-parser"] }
+ring = "0.17"
+# Memory and CPU of this process only (Performance view, M31).
+sysinfo = { version = "0.38", default-features = false, features = ["system"] }
+rusqlite = { version = "0.42", features = ["bundled-sqlcipher-vendored-openssl", "functions"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+rustls-native-certs = "0.8"
+serde = { version = "1", features = ["derive"] }
+subtle = "2"
+serde_json = "1"
+tempfile = "3"
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12", "logging"] }
+tokio-util = "0.7"
+toml = "1"
+tracing = "0.1"
+url = "2"
+tracing-appender = "0.2"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+time = "0.3"
+ts-rs = { version = "12", features = ["serde-compat"] }
+webpki-roots = "1"
+x509-parser = "0.18"
+yaml-rust2 = { version = "0.13", default-features = false }
+zstd = "0.14"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+dbg_macro = "deny"
+todo = "deny"
+unimplemented = "deny"
+print_stdout = "warn"
+
+# Key derivation (PBKDF2, 600 000 rounds) and TLS stay fast in debug builds.
+[profile.dev.package.ring]
+opt-level = 3
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "debuginfo"

@@ -1,0 +1,25 @@
+[package]
+name = "chosproxy-storage"
+description = "SQLite project storage for ChosProxy."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+chosproxy-core.workspace = true
+regex.workspace = true
+ring.workspace = true
+rusqlite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+ts-rs.workspace = true
+zstd.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

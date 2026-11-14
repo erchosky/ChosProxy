@@ -1,0 +1,15 @@
+[package]
+name = "chosproxy-websocket"
+description = "WebSocket (RFC 6455) frame codec and message assembly for ChosProxy."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+ring.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+
+[lints]
+workspace = true

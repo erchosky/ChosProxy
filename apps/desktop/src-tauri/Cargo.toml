@@ -1,0 +1,33 @@
+[package]
+name = "chosproxy-desktop"
+description = "ChosProxy desktop application (Tauri shell)."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lib]
+name = "chosproxy_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "chosproxy"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+chosproxy-app.workspace = true
+chosproxy-core.workspace = true
+chosproxy-storage.workspace = true
+chosproxy-apispec.workspace = true
+chosproxy-api.workspace = true
+serde.workspace = true
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tokio.workspace = true
+tracing.workspace = true
+
+[lints]
+workspace = true

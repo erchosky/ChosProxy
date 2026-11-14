@@ -1,0 +1,38 @@
+[package]
+name = "chosproxy-proxy"
+description = "Proxy listeners and the HTTP/1.1 relay for ChosProxy."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+base64.workspace = true
+chosproxy-core.workspace = true
+chosproxy-http.workspace = true
+chosproxy-request.workspace = true
+chosproxy-script.workspace = true
+bytes.workspace = true
+h2.workspace = true
+http.workspace = true
+regex.workspace = true
+chosproxy-tls.workspace = true
+chosproxy-websocket.workspace = true
+rustls.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-rustls.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+ts-rs.workspace = true
+
+[dev-dependencies]
+chosproxy-websocket.workspace = true
+base64.workspace = true
+chosproxy-lab.workspace = true
+tempfile.workspace = true
+flate2.workspace = true
+
+[lints]
+workspace = true

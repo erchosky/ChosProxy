@@ -1,0 +1,57 @@
+[package]
+name = "chosproxy-app"
+description = "UI-agnostic engine composing ChosProxy's configuration, projects, proxy and events."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+url.workspace = true
+base64.workspace = true
+chosproxy-core.workspace = true
+chosproxy-decoder.workspace = true
+chosproxy-http.workspace = true
+chosproxy-proxy.workspace = true
+chosproxy-report.workspace = true
+chosproxy-request.workspace = true
+chosproxy-scanner.workspace = true
+chosproxy-script.workspace = true
+chosproxy-crawler.workspace = true
+chosproxy-apispec.workspace = true
+chosproxy-ai.workspace = true
+chosproxy-fuzzer.workspace = true
+chosproxy-sequencer.workspace = true
+chosproxy-plugin.workspace = true
+chosproxy-oast.workspace = true
+chosproxy-dom.workspace = true
+chosproxy-discovery.workspace = true
+chosproxy-storage.workspace = true
+chosproxy-tls.workspace = true
+regex.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sysinfo.workspace = true
+ring.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-appender.workspace = true
+tracing-subscriber.workspace = true
+ts-rs.workspace = true
+
+[target.'cfg(target_os = "macos")'.dependencies]
+security-framework = "3"
+
+[dev-dependencies]
+url.workspace = true
+chosproxy-websocket.workspace = true
+chosproxy-http.workspace = true
+chosproxy-lab.workspace = true
+rustls.workspace = true
+tokio-rustls.workspace = true
+flate2.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

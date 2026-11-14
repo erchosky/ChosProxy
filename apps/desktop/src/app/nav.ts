@@ -1,0 +1,35 @@
+import type { IconName } from "../components/Icon";
+import type { ViewId } from "../state/app";
+
+/** The sidebar, in order (also the order Alt+↑/↓ walks). */
+export const NAV: { id: ViewId; label: string; icon: IconName; group?: string }[] = [
+  { id: "dashboard", label: "Dashboard", icon: "dashboard" },
+  { id: "project", label: "Project", icon: "file" },
+  { id: "intercept", label: "Intercept", icon: "pause", group: "Proxy" },
+  { id: "history", label: "HTTP history", icon: "history", group: "Proxy" },
+  { id: "listeners", label: "Listeners", icon: "listeners", group: "Proxy" },
+  { id: "websockets", label: "WebSockets", icon: "websocket", group: "Proxy" },
+  { id: "https", label: "HTTPS & browser", icon: "shield", group: "Proxy" },
+  { id: "sitemap", label: "Site map", icon: "sitemap", group: "Target" },
+  { id: "scope", label: "Scope", icon: "target", group: "Target" },
+  { id: "search", label: "Search", icon: "search", group: "Target" },
+  { id: "tasks", label: "Crawler & tasks", icon: "spider", group: "Target" },
+  { id: "api", label: "API workspace", icon: "api", group: "Target" },
+  { id: "findings", label: "Findings", icon: "warning", group: "Target" },
+  { id: "report", label: "Report", icon: "file", group: "Target" },
+  { id: "repeater", label: "Repeater", icon: "repeater", group: "Tools" },
+  { id: "fuzzer", label: "Fuzzer", icon: "bolt", group: "Tools" },
+  { id: "sequencer", label: "Sequencer", icon: "dice", group: "Tools" },
+  { id: "oast", label: "OAST", icon: "beacon", group: "Tools" },
+  { id: "dom", label: "DOM Inspector", icon: "nodes", group: "Tools" },
+  { id: "logger", label: "Logger", icon: "logger", group: "Tools" },
+  { id: "decoder", label: "Decoder", icon: "decoder", group: "Tools" },
+  { id: "comparer", label: "Comparer", icon: "compare", group: "Tools" },
+  { id: "organizer", label: "Organizer", icon: "bookmark", group: "Tools" },
+  { id: "scripts", label: "Scripts", icon: "code", group: "Tools" },
+  { id: "performance", label: "Performance", icon: "gauge", group: "Tools" },
+  { id: "agent", label: "ChosAgent", icon: "agent" },
+  { id: "plugins", label: "Plugins", icon: "puzzle" },
+  { id: "eventlog", label: "Event log", icon: "log" },
+  { id: "settings", label: "Settings", icon: "settings" },
+];

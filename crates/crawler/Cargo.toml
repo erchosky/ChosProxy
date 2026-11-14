@@ -1,0 +1,21 @@
+[package]
+name = "chosproxy-crawler"
+description = "Crawler for ChosProxy: configuration, link discovery and the URL frontier."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+chosproxy-http.workspace = true
+chosproxy-scanner.workspace = true
+regex.workspace = true
+serde.workspace = true
+ts-rs.workspace = true
+url.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[lints]
+workspace = true
